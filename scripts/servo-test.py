@@ -4,11 +4,11 @@ import time
 # Preparing the GPIO board:
 GPIO.setmode(GPIO.BOARD)
 
-# Making pin 11 an output pin:
-GPIO.setup(11, GPIO.OUT)
+# Making pin 15 an output pin:
+GPIO.setup(15, GPIO.OUT)
 
 # Making this pin send a PWM signal:
-inA = GPIO.PWM(11, 50000)
+inA = GPIO.PWM(15, 50000)
 
 # Start with no signal:
 inA.start(0)
