@@ -57,3 +57,7 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+# Keeping ignored before getting approval from the author:
+Assets/Plugins
+Assets/Vendors/BluetoothAPI

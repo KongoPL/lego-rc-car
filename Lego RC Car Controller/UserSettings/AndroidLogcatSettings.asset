@@ -1,13 +1,68 @@
 {
-    "m_SelectedDeviceId": "",
+    "m_SelectedDeviceId": "728916c2",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "728916c2",
+        "name": "com.happylynx.legorccontroller",
+        "processId": 10940,
         "exited": false
     },
     "m_SelectedPriority": 0,
-    "m_KnownPackagesForSerialization": [],
+    "m_KnownPackagesForSerialization": [
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 27143,
+            "exited": true
+        },
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 30947,
+            "exited": true
+        },
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 32524,
+            "exited": true
+        },
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 587,
+            "exited": true
+        },
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 6553,
+            "exited": true
+        },
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 7189,
+            "exited": false
+        },
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 9097,
+            "exited": false
+        },
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 10070,
+            "exited": false
+        },
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 10940,
+            "exited": false
+        }
+    ],
     "m_Tags": {
         "m_Entries": [
             {
@@ -41,9 +96,20 @@
         ]
     },
     "m_MemoryViewerState": {
-        "MemoryWindowHeight": 0.0,
-        "MemoryWindowWidth": 0.0,
-        "MemoryTypeEnabled": [],
+        "MemoryWindowHeight": 300.0,
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
         "MemoryGroup": 2,
         "Behavior": 0
     },
