@@ -32,6 +32,7 @@ abstract public class CommunicationMedium : MonoBehaviour
 
 	protected void OnConnectionFailed ()
 	{
+		this.isConnected = false;
 		this.onConnectionFailed?.Invoke();
 	}
 }

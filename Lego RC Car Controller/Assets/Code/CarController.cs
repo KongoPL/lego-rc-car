@@ -8,16 +8,17 @@ class CarController : MonoBehaviour
 	[SerializeField] string deviceName = "raspberrypi";
 
 	CommunicationMedium communication;
+	bool failedLastConnection = true;
 
-	private void Start ()
+	void Start ()
 	{
 		this.communication = new BluetoothCommunicationManager( this.deviceName );
-		//this.communication = new MockCommunicationManager();
+		//this.communication = new MockCommunicationManager( true );
 
-		this.KeepConnectingUntilSuccessfull();
+		this.InitConnectingUntilSuccessfull();
 	}
 
-	private void Update ()
+	void Update ()
 	{
 		if ( !this.communication.isConnected )
 			return;
@@ -26,21 +27,55 @@ class CarController : MonoBehaviour
 		this.SendDrive( this.steeringManager.GetMovementDirection().y );
 	}
 
-	void KeepConnectingUntilSuccessfull() 
+	void InitConnectingUntilSuccessfull()
 	{
-		this.communication.onConnected += this.StopTryingToConnect;
-		this.communication.onConnectionFailed += this.TryReconnect;
-
-		this.communication.Connect();
+		this.StartCoroutine( this.KeepConnectingUntilSuccessfull() );
 	}
 
-	void StopTryingToConnect() {
-		this.communication.onConnectionFailed -= this.TryReconnect;
+	IEnumerator KeepConnectingUntilSuccessfull() 
+	{
+		this.communication.onConnectionFailed -= this.InitConnectingUntilSuccessfull; // Stop reconnecting when connection failed
+		this.communication.onConnectionFailed += this.MarkConnectionAsFailed;
+		this.communication.onConnected += this.OnKeepConnectionSuccessfull;
+
+		this.failedLastConnection = true;
+		int connectAttempt = 0;
+
+		while ( !this.communication.isConnected )
+		{
+			if ( this.failedLastConnection )
+			{
+				connectAttempt++;
+
+				this.failedLastConnection = false;
+				this.steeringManager.SetStatusConnecting( connectAttempt );
+				this.communication.Connect();
+
+				yield return new WaitForSeconds( 5.0f );
+			}
+			else
+			{
+				yield return new WaitForSeconds( 0.2f );
+
+				continue;
+			}
+		}
+
+		yield break;
 	}
 
-	void TryReconnect() {
-		this.communication.Connect();
+	void MarkConnectionAsFailed ()
+	{
+		this.failedLastConnection = true;
 	}
+
+	void OnKeepConnectionSuccessfull ()
+	{
+		this.communication.onConnectionFailed -= this.MarkConnectionAsFailed;
+		this.communication.onConnectionFailed += this.InitConnectingUntilSuccessfull; // When connection resets, it will reconnect again
+		this.steeringManager.SetStatusConnected();
+	}
+
 
 	void SendDrive ( float value )
 	{

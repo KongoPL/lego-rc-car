@@ -3,11 +3,27 @@ using System.Collections.Generic;
 
 class MockCommunicationManager : CommunicationMedium
 {
+	public bool connectionWorks;
+
+	public MockCommunicationManager ( bool connectionWorks = true )
+	{
+		this.connectionWorks = connectionWorks;
+	}
+
 	override public void Connect ()
 	{
-		Debug.Log( "Connected to device!" );
+		if ( this.connectionWorks )
+		{
+			Debug.Log( "Connected to device!" );
 
-		this.OnConnected();
+			this.OnConnected();
+		}
+		else
+		{
+			Debug.LogError( "Failed connecting to the device!" );
+
+			this.OnConnectionFailed();
+		}
 	}
 
 	override public void SendData ( byte[] data )

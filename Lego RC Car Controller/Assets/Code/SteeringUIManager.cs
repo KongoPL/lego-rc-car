@@ -18,14 +18,16 @@ public class SteeringUIManager : MonoBehaviour
 	}
 
 
-	public void SetStatusConnecting ( int attempt = 0 )
+	public void SetStatusConnecting ( int attempt = 1 )
 	{
-
+		this.statusText.text = $"Trying connect to the MCU...{(attempt <= 1 ? "" : $"({attempt})")}";
+		this.statusText.color = Color.white;
 	}
 
 
 	public void SetStatusConnected()
 	{
-
+		this.statusText.text = $"Connected to the MCU!";
+		this.statusText.color = Color.green;
 	}
 }
