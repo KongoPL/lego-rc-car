@@ -1,0 +1,1 @@
+Requires plugin: [Arduino Bluetooth Plugin](https://assetstore.unity.com/packages/tools/input-management/arduino-bluetooth-plugin-98960) (cannot be commited as it violates ToS)
