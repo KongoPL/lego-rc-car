@@ -1,13 +1,17 @@
 # Yea, there is probably some good framework waiting for me,
 # but I just want to have fun. Sometimes reinventing the wheel will serve you.
 # But...don't do that in professional work :)
+import config
 
 import time
 from Controller import Controller
 
+print("Hello!")
+
 root = Controller()
 
-try:
+# try:
+if True:
 	lastLoopExecution = time.time()
 
 	while True:
@@ -21,5 +25,5 @@ try:
 			object.update(deltaTime)
 
 		lastLoopExecution = loopStartExecution
-except:
-	print("An error occured")
+# except:
+# 	print("An error occured")

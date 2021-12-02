@@ -1,4 +1,3 @@
-from _typeshed import Self
 from classes.GpioManager import GpioManager
 
 class GpioMotor:
@@ -7,9 +6,8 @@ class GpioMotor:
 
         gpioManager.setPinAsOutput(pinForward)
         gpioManager.setPinAsOutput(pinBackward)
-        self.pinForwardPWM = gpioManager.setupPinForPWM(pinBackward)
-        self.pinBackwardPWM = gpioManager.setupPinForPWM(pinBackward)
-
+        self.pinForwardPWM = gpioManager.setupPinForPWM(pinForward, 100)
+        self.pinBackwardPWM = gpioManager.setupPinForPWM(pinBackward, 100)
 
     def drive(self, direction: float):
         if direction > 0:
@@ -18,9 +16,13 @@ class GpioMotor:
             self.__driveBackwards(-direction)
 
     def __driveForward(self, direction: float):
+        direction = max(0, min(direction, 1))
+
         self.pinBackwardPWM.ChangeDutyCycle(0)
-        self.pinForwardPWM.ChangeDutyCycle(direction)
+        self.pinForwardPWM.ChangeDutyCycle(direction * 100)
 
     def __driveBackwards(self, direction: float):
+        direction = max(0, min(direction, 1))
+
         self.pinForwardPWM.ChangeDutyCycle(0)
-        self.pinBackwardPWM.ChangeDutyCycle(direction)
+        self.pinBackwardPWM.ChangeDutyCycle(direction * 100)

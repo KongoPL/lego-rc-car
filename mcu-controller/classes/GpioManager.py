@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 
 class GpioManager:
     def __init__(self):
-        GPIO.setMode(GPIO.BOARD)
+        GPIO.setmode(GPIO.BOARD)
 
     def __del__(self):
         GPIO.cleanup()

@@ -4,5 +4,5 @@ class BaseObject:
     def __init__(self):
         self.createdObjects.append(self)
 
-    def update(deltaTime):
+    def update(self, deltaTime):
         pass

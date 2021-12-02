@@ -3,29 +3,37 @@
 # Link: https://gist.github.com/keithweaver/3d5dbf38074cee4250c7d9807510c7c3
 ########
 
+from typing import Union
 import bluetooth
+import socket
+import errno
 
 class BluetoothConnectionManager:
-	async def receiveMessages(self):
-		server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
+	def __init__(self) -> None:
+		self.serverSocket = bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 
-		port = 1
-		server_sock.bind(("",port))
-		server_sock.listen(1)
+		self.serverSocket.bind(("",1))
+		self.serverSocket.listen(1)
+		# self.serverSocket.setblocking(False)
 
-		client_sock,address = server_sock.accept()
-		print("Accepted connection from " + str(address))
+	def __del__(self) -> None:
+		self.serverSocket.close()
 
+	def awaitConnection(self) -> None:
+		self.clientSocket, address = self.serverSocket.accept()
+		# self.clientSocket.setblocking(False)
+		self.clientSocket.settimeout(2)
+
+	def tryGetMessage(self) -> Union[bool, bytearray, None]:
+		if self.clientSocket == False:
+			return False
+		
 		try:
-			while True:
-				data = bytearray(client_sock.recv(1024))
+			data = bytearray(self.clientSocket.recv(1024))
 
-				print("Command: "+str(data[0])+", Value: "+str(data[1]))
-		except:
-			print("Client disconnected!")
-		finally:
-			client_sock.close()
-			server_sock.close()
+			return data
+		except socket.error as e:
+			return False
 
 	# def sendMessageTo(targetBluetoothMacAddress):
 	# 	port = 1
@@ -34,8 +42,8 @@ class BluetoothConnectionManager:
 	# 	sock.send("hello!!")
 	# 	sock.close()
 
-	def lookUpNearbyBluetoothDevices():
-		nearby_devices = bluetooth.discover_devices()
+	# def lookUpNearbyBluetoothDevices():
+	# 	nearby_devices = bluetooth.discover_devices()
 		
-		for bdaddr in nearby_devices:
-			print(str(bluetooth.lookup_name( bdaddr )) + " [" + str(bdaddr) + "]")
+	# 	for bdaddr in nearby_devices:
+	# 		print(str(bluetooth.lookup_name( bdaddr )) + " [" + str(bdaddr) + "]")
