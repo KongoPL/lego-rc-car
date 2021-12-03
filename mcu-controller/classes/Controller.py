@@ -1,7 +1,9 @@
 from BaseObject import BaseObject
 from BluetoothConnectionManager import BluetoothConnectionManager
+from GpioServo import GpioServo
 from classes.GpioManager import GpioManager
 from classes.GpioMotor import GpioMotor
+from config import CONFIG
 
 class Controller(BaseObject):
 	def __init__(self):
@@ -10,9 +12,19 @@ class Controller(BaseObject):
 		self.communication = BluetoothConnectionManager()
 		self.gpioManager = GpioManager()
 
-		self.driveMotor = GpioMotor(self.gpioManager, 11, 13)
+		self.driveMotor = GpioMotor(
+			self.gpioManager, 
+			CONFIG["driveMotor"]["pinForward"], 
+			CONFIG["driveMotor"]["pinBackward"]
+		)
 		# self.handbrakeMotor = GpioMotor()
-		# self.steeringServo = GpioServo()
+		self.steeringServo = GpioServo(
+			self.gpioManager, 
+			CONFIG["steeringServo"]["pin"], 
+			CONFIG["steeringServo"]["forwardPulseWidthRange"], 
+			CONFIG["steeringServo"]["backwardPulseWidthRange"],
+			CONFIG["steeringServo"]["valueShift"]
+		)
 
 		self.communication.awaitConnection()
 
@@ -28,6 +40,8 @@ class Controller(BaseObject):
 		self.executeCommand(data)
 
 	def executeEmergencyStop(self):
+		self.drive(0)
+		self.steer(0)
 		self.communication.awaitConnection()
 
 	def executeCommand(self, data: bytearray):
@@ -48,10 +62,10 @@ class Controller(BaseObject):
 			pass
 
 	def drive(self, value):
-		self.driveMotor.drive(value)
+		self.driveMotor.rotate(value)
 
 	def steer(self, value):
-		pass
+		self.steeringServo.rotate(value)
 	
 def byteToSignedInt(byte):
 	if byte > 127:
