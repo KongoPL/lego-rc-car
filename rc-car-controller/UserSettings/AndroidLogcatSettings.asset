@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "728916c2",
         "name": "com.happylynx.legorccontroller",
-        "processId": 10940,
+        "processId": 16082,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -60,6 +60,36 @@
             "deviceId": "728916c2",
             "name": "com.happylynx.legorccontroller",
             "processId": 10940,
+            "exited": false
+        },
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 5452,
+            "exited": false
+        },
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 12147,
+            "exited": false
+        },
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 12781,
+            "exited": false
+        },
+        {
+            "deviceId": "728916c2",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 16082,
+            "exited": false
+        },
+        {
+            "deviceId": "R52R30HPA2M",
+            "name": "com.happylynx.legorccontroller",
+            "processId": 20315,
             "exited": false
         }
     ],

@@ -1,6 +1,6 @@
 ﻿enum ECommandCodes {
 	Drive = 1,
 	Steer = 2,
-	Handbrake = 3,
-	Lights = 4
+	HandbrakeStart = 3,
+	HandbrakeEnd = 4
 };

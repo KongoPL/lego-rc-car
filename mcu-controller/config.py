@@ -12,5 +12,10 @@ CONFIG = {
     "driveMotor": {
         "pinForward": 11,
         "pinBackward": 13
+    },
+    "handbrakeMotor": {
+        "pinForward": 16,
+        "pinBackward": 18,
+        "usingStopsDriveMotor": True
     }
 }

@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class SteeringUIManager : MonoBehaviour
 {
+	public bool handbrakeEnabled = false;
+
 	[SerializeField] FixedJoystick steeringJoystick;
 	[SerializeField] FixedJoystick driveJoystick;
 	[SerializeField] Text statusText;
+	[SerializeField] Button[] handbrakeButtons;
 
 	public Vector2 GetMovementDirection()
 	{
@@ -15,6 +18,18 @@ public class SteeringUIManager : MonoBehaviour
 			this.steeringJoystick.Direction.x,
 			this.driveJoystick.Direction.y
 		);
+	}
+
+
+	public void EnableHandbrake()
+	{
+		this.handbrakeEnabled = true;
+	}
+
+
+	public void DisableHandbrake()
+	{
+		this.handbrakeEnabled = false;
 	}
 
 

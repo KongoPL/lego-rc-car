@@ -9,6 +9,7 @@ class CarController : MonoBehaviour
 
 	CommunicationMedium communication;
 	bool failedLastConnection = true;
+	bool isHandbrakeEnabled = false;
 
 	void Start ()
 	{
@@ -25,6 +26,21 @@ class CarController : MonoBehaviour
 
 		this.SendSteer( this.steeringManager.GetMovementDirection().x );
 		this.SendDrive( this.steeringManager.GetMovementDirection().y );
+
+		bool isNowHandbrakeEnabled = this.steeringManager.handbrakeEnabled;
+
+		if ( isNowHandbrakeEnabled )
+		{
+			this.SendHandbrakeStart();
+
+			this.isHandbrakeEnabled = true;
+		}
+		else if ( this.isHandbrakeEnabled )
+		{
+			this.SendHandbrakeEnd();
+
+			this.isHandbrakeEnabled = false;
+		}
 	}
 
 	void InitConnectingUntilSuccessfull()
@@ -91,6 +107,23 @@ class CarController : MonoBehaviour
 		this.SendCommand( ECommandCodes.Steer, new byte[] { steerValue } );
 	}
 
+
+	void SendHandbrakeStart()
+	{
+		this.SendCommand( ECommandCodes.HandbrakeStart );
+	}
+
+
+	void SendHandbrakeEnd()
+	{
+		this.SendCommand( ECommandCodes.HandbrakeEnd );
+	}
+
+
+	void SendCommand ( ECommandCodes command )
+	{
+		this.SendCommand( command, new byte[0] );
+	}
 
 	void SendCommand ( ECommandCodes command, byte[] data )
 	{
